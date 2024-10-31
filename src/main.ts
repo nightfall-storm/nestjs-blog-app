@@ -8,6 +8,7 @@ async function bootstrap() {
     .setTitle('Example')
     .setDescription('Auth user example')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

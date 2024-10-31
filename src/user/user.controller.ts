@@ -6,15 +6,18 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
-import { PostResponseDto } from 'src/post/dto/post-response.dto';
+import { JwtAuthGuard } from 'src/auth/guard';
 
 @ApiTags('Users')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('user')
 export default class UserController {
   constructor(private readonly userService: UserService) {}

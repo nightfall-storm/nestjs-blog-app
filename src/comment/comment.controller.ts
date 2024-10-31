@@ -6,13 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { ApiResponse, ApiParam } from '@nestjs/swagger';
+import { ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { Comment } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/guard';
 
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('comments')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
