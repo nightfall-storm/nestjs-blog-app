@@ -18,11 +18,11 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from 'src/common/decorators';
 import { Role } from '@prisma/client';
 
-@ApiTags('Users')
+@ApiTags('Manage Users')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN)
 @ApiBearerAuth()
-@Controller('user')
+@Controller('users')
 export default class UserController {
   constructor(private readonly userService: UserService) {}
 

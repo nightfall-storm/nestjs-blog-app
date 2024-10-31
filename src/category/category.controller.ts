@@ -11,7 +11,7 @@ import {
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryResponseDto } from './dto/category-response.dto';
-import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Role } from '@prisma/client';
@@ -19,6 +19,7 @@ import { Roles } from 'src/common/decorators';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN)
+@ApiTags('Manage Categories')
 @ApiBearerAuth()
 @Controller('categories')
 export class CategoryController {
