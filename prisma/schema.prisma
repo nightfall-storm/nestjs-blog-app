@@ -49,7 +49,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  categoryId Int       // Add this field to reference the category
+  categoryId Int // Add this field to reference the category
   category   Category  @relation(fields: [categoryId], references: [id]) // One category per post
   comment    Comment[]
 }
@@ -67,6 +67,9 @@ model Category {
 
 model Comment {
   id Int @id @default(autoincrement())
+
+  content   String
+  createdAt DateTime @default(now())
 
   postId Int
   post   Post @relation(fields: [postId], references: [id])
