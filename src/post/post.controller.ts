@@ -18,7 +18,7 @@ import { JwtAuthGuard } from 'src/auth/guard';
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @ApiTags('Posts')
-@Controller('postx')
+@Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
