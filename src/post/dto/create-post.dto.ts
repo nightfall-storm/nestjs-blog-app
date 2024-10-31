@@ -15,4 +15,8 @@ export class CreatePostDto {
   @ApiProperty({ description: 'The ID of the author', type: Number })
   @IsInt()
   authorId: number;
+
+  @ApiProperty({ description: 'The ID of the Category', type: Number })
+  @IsInt()
+  categoryId: number;
 }
