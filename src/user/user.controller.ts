@@ -13,10 +13,14 @@ import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
-import { JwtAuthGuard } from 'src/auth/guard';
+import { JwtAuthGuard } from '../auth/guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from 'src/common/decorators';
+import { Role } from '@prisma/client';
 
 @ApiTags('Users')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Role.ADMIN)
 @ApiBearerAuth()
 @Controller('user')
 export default class UserController {
