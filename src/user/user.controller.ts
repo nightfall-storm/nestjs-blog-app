@@ -12,10 +12,11 @@ import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
+import { PostResponseDto } from 'src/post/dto/post-response.dto';
 
 @ApiTags('Users')
 @Controller('user')
-export class UserController {
+export default class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('create')
@@ -50,5 +51,10 @@ export class UserController {
   @ApiResponse({ description: 'User deleted successfully' })
   async delete(@Param('id') id: string) {
     return await this.userService.delete(+id);
+  }
+
+  @Get(':id/profile')
+  async getUserProfile(@Param('id') id: string) {
+    return await this.userService.getUserProfile(+id);
   }
 }

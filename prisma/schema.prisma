@@ -22,7 +22,7 @@ model User {
 
   profile_image String?
   bio           String?
-  
+
   role Role @default(USER)
 
   createdAt DateTime @default(now())
@@ -32,7 +32,7 @@ model User {
   comment Comment[]
 }
 
-enum Role{
+enum Role {
   USER
   ADMIN
 }

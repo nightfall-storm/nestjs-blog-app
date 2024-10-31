@@ -1,9 +1,14 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import * as argon from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
+import { PostResponseDto } from 'src/post/dto/post-response.dto';
 
 @Injectable()
 export class UserService {
@@ -50,7 +55,10 @@ export class UserService {
     return this.toResponse(user);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserResponseDto> {
     const user = await this.prisma.user.update({
       where: { id },
       data: updateUserDto,
@@ -68,5 +76,17 @@ export class UserService {
 
     await this.prisma.user.delete({ where: { id } });
     return `User with ID ${id} deleted successfully`;
+  }
+
+  async getUserProfile(
+    id: number,
+  ): Promise<UserResponseDto & { posts: PostResponseDto[] }> {
+    const user = await this.findOne(id);
+    const posts = await this.prisma.post.findMany({
+      where: { authorId: id },
+      include: { author: { select: { id: true, username: true } } },
+    });
+
+    return { ...user, posts }; // Combine user data with their posts
   }
 }
