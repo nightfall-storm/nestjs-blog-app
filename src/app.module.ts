@@ -6,10 +6,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
 import { CommentModule } from './comment/comment.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal: true}), UserModule, PrismaModule, PostModule, CategoryModule, CommentModule],
+  imports: [ConfigModule.forRoot({isGlobal: true}), UserModule, PrismaModule, PostModule, CategoryModule, CommentModule, AuthModule],
   providers: [PrismaService],
   
 })
